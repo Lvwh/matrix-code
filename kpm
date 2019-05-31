@@ -1,0 +1,31 @@
+M=50;
+nvec=100;
+z=zeros(M+1,1);
+for l=1:nvec
+    v=zeros(n,M+1);
+    v(:,1)=normrnd(0,1,n,1);
+    for k=1:M+1
+        z(k,1)=z(k,1)+v(:,1)'*v(:,k);
+    if k==1 
+        v(:,2)=A*v(:,1);
+    else
+        v(:,k+1)=2*A*v(:,k)-v(:,k-1);
+    end  
+    end   
+end
+for k=1:M+1
+    z(k,1)=z(k,1)/nvec;
+    if k==1
+    u(k,1)=z(k,1)/(n*pi);
+    else
+        u(k,1)=(2*z(k,1))/(n*pi);
+    end
+end
+%%
+t=-0.999:0.0001:0.999;
+y=0;
+for k=1:M+1
+y=y+(1./sqrt(1-t.^2)).*u(k,1).*cos((k-1).*acos(t));
+end
+plot(t,y)
+hold on
