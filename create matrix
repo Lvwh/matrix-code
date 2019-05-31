@@ -1,0 +1,10 @@
+n=3000;
+h=2*pi/(n+1);
+B1=diag(2*ones(n,1)) + diag(-1*ones(n-1,1),1) + diag(-1*ones(n-1,1),-1);
+B=B1/h^2;
+
+D=eig(B);
+c=(max(D)+min(D))/2;
+d=(max(D)-min(D))/2;
+I=diag(1*ones(n,1));
+A=(B-c*I)/d;
